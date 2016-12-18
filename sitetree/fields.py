@@ -3,7 +3,6 @@ from django.template.base import Parser, Token, TOKEN_BLOCK
 from django.forms import ChoiceField
 from django.utils.safestring import mark_safe
 
-from .templatetags.sitetree import sitetree_tree
 from .utils import get_tree_model, get_tree_item_model
 
 
@@ -33,6 +32,7 @@ class TreeItemChoiceField(ChoiceField):
 
     def _build_choices(self):
         """Build choices list runtime using 'sitetree_tree' tag"""
+        from .templatetags.sitetree import sitetree_tree
         tree_token = u'sitetree_tree from "%s" template "%s"' % (self.tree, self.template)
 
         choices_str = sitetree_tree(
